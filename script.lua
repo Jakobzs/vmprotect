@@ -28,15 +28,15 @@ function OnBeforeCompilation()
 				addType = CompilationType.Ultra
 			elseif fn:name():find("_virtualize_") ~= nil then
 				bprint("As virtualized")
-				addType = CompilationType.Virtualized
+				addType = CompilationType.Virtualization
 			elseif fn:name():find("_mutate_") ~= nil then
 				bprint("As mutated")
-				addType = CompilationType.Mutate
+				addType = CompilationType.Mutation
 			end
 			added = file:functions():addByAddress(fn:address(), addType)
 			if fn:name():find("_lock_") ~= nil then
-				if addType == CompilationType.Mutate then
-					error("Lock doesn't work at mutated code!")
+				if addType == CompilationType.Mutation then
+					error("Lock does not work with mutated code!")
 				end
 				bprint("And locked by key")
 				added:setLockToKey(true)
